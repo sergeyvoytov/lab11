@@ -9,19 +9,18 @@ var middleItemImageElem = document.getElementById('middle_item_img');
 var leftItemCaptionElem = document.getElementById('left_item_h2');
 var rightItemCaptionElem = document.getElementById('right_item_h2');
 var middleItemCaptionElem = document.getElementById('middle_item_h2');
-var maxClicks = 5;
+var maxClicks = 12;
 
 var ItemPicture = function (name, imageSrc) {
   this.name = name;
   this.clicks = 0;
   this.timesShown = 0;
   this.url = imageSrc;
-
   // the allImages array is a property of the ItemPicture constructor
   ItemPicture.allImages.push(this);
 };
-
 ItemPicture.allImages = [];
+
 var totalClicks = 0;
 
 // Variables to store the Items already on the page
@@ -38,7 +37,7 @@ var renderNewItems = function (leftIndex, rightIndex, middleIndex){
   rightItemCaptionElem.textContent = ItemPicture.allImages[rightIndex].name;
   middleItemCaptionElem.textContent = ItemPicture.allImages[middleIndex].name;
 };
-
+///// quesion declaring indexes for left and middlebefore do loop
 var pickNewItems = function(){
   var leftIndex = Math.floor(Math.random() * ItemPicture.allImages.length);
   var middleIndex = Math.floor(Math.random() * ItemPicture.allImages.length);
@@ -60,7 +59,6 @@ var handleClickOnItem = function(event){
 
     var thingWeClickedOn = event.target;
     var picId = thingWeClickedOn.id;
-    // console.log('picID',picId);
 
     if(picId === 'left_item_img' || picId === 'right_item_img' || picId === 'middle_item_img'){
       //track the Items
@@ -68,6 +66,7 @@ var handleClickOnItem = function(event){
       // if Item is the left Item, increment the left Item)
       if(picId === 'left_item_img'){
         leftItemOnThePage.clicks++;
+        console.log('item',name.ItemPicture);
       }
 
       if(picId === 'right_item_img'){
@@ -86,10 +85,10 @@ var handleClickOnItem = function(event){
   }
   // increment amount of clicks
   totalClicks++;
-  //when they reach total max clicks, remove the clicky function
+  //when they reach total max clicks, remove the click function
   if(totalClicks === maxClicks){
     itemImageSectionElem.removeEventListener('click', handleClickOnItem);
-    console.log('you picked 5 Items, thanks!');
+    console.log(`you picked ${maxClicks} Items, thanks!`);
   }
 };
 
@@ -102,3 +101,4 @@ for (var i=0; i<itemList.length; i++) {
 }
 
 pickNewItems();
+
